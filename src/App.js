@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/navigation/Navigation'
 import ImageLinkForm from './components/imagelinkform/ImageLinkForm'
+import FaceRecognition from './components/facerecognition/FaceRecognition'
 import Rank from './components/rank/Rank'
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -25,17 +26,20 @@ class App extends Component {
     constructor(){
       super();
       this.state = {
-          input: ''
+          input: '',
+          imageUrl : ''
       }
     }
     onInputChange = (event) =>{
-      console.log(event.target.value) ;
+      // console.log(event.target.value) ;
+      this.setState({input : event.target.value})
     }
     onButtonDetect = () => {
+      this.setState({imageUrl : this.state.input})
       console.log('slap') ;
-      app.models.predict("a403429f2ddf4b49b307e318f00e528b", "https://samples.clarifai.com/face-det.jpg").then(
+      app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
         function(response) {
-          console.log(response) ;  
+          console.log(response.outputs[0].data.regions[0].region_info.bounding_box) ;  
         },
         function(err) {
           // there was an error
@@ -51,7 +55,7 @@ class App extends Component {
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
           onButtonDetect={this.onButtonDetect}/>
-        {/* <FaceRecognition /> */}
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
   
       )
