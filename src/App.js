@@ -1,24 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navigation from './components/navigation/Navigation'
+import ImageLinkForm from './components/imagelinkform/ImageLinkForm'
+import Rank from './components/rank/Rank'
+import Particles from 'react-particles-js';
+
+  const particleparams = {
+    polygon: {
+      enable: true,
+      type: 'inside',
+      move: {
+          radius: 10
+      },
+      url: 'path/to/svg.svg'
+  }
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Particles params={{particleparams}} className='particles' />    
+      <Navigation />
+      <Rank />
+      <ImageLinkForm />
+      {/* <FaceRecognition /> */}
     </div>
   );
 }
