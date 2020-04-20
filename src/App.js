@@ -27,24 +27,40 @@ class App extends Component {
       super();
       this.state = {
           input: '',
-          imageUrl : ''
+          imageUrl : '',
+          box:{}
       }
     }
+    calculateFaceLocation = (data) => {
+      const clarifaiface = data.outputs[0].data.regions[0].region_info.bounding_box ;
+      const image = document.getElementById('input_image') ;
+      const width = Number(image.width) ;
+      const height = Number(image.height) ;
+      return {
+        leftcol: clarifaiface.left_col * width ,
+        toprow: clarifaiface.top_row * height ,
+        rightcol: width - (clarifaiface.right_col * width) ,
+        bottomrow: height - (clarifaiface.bottom_row * height) 
+      }
+    }
+
+    displayFaceBox = (box) => {
+      this.setState({box : box }) ; 
+      console.log(this.state.box) ;
+
+    }
+
     onInputChange = (event) =>{
       // console.log(event.target.value) ;
-      this.setState({input : event.target.value})
+      this.setState({input : event.target.value}) 
     }
     onButtonDetect = () => {
-      this.setState({imageUrl : this.state.input})
-      console.log('slap') ;
-      app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-        function(response) {
-          console.log(response.outputs[0].data.regions[0].region_info.bounding_box) ;  
-        },
-        function(err) {
-          // there was an error
-        }
-      );      
+      this.setState({imageUrl : this.state.input}) ;
+      app.models.predict(
+        Clarifai.FACE_DETECT_MODEL, 
+        this.state.input)
+        .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))          
+        .catch(err => alert(err));      
     }
     render(){
       return (
@@ -55,7 +71,7 @@ class App extends Component {
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
           onButtonDetect={this.onButtonDetect}/>
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box} />
       </div>
   
       )
