@@ -26,9 +26,13 @@ class SignIn extends Component {
             })
         }).then( response => response.json)
         .then(data => {
-            this.props.onRouteChange('home') ;
+            if(data === 'success'){
+                this.props.onRouteChange('home') ;                
+            }else{
+                alert('wrong email or password')
+            }
         }).catch(err => {
-            alert('Wrong Pass or Email',err)
+            alert(err)
         })
     }
     render(){
@@ -67,7 +71,7 @@ class SignIn extends Component {
                     </div>
                     <div className="lh-copy mt3">
                     <a 
-                        onClick={this.onSubmitSignIn}            
+                        onClick={() => onRouteChange('register')}            
                         href="#" 
                         className="f6 link dim black db">Sign up</a>
                     </div>
