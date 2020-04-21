@@ -52,7 +52,7 @@ class App extends Component {
           joined : data.joined           
         }
       })  
-      console.log(this.state.user)
+      console.log(data)
     }
 
     calculateFaceLocation = (data) => {
@@ -83,7 +83,22 @@ class App extends Component {
       app.models.predict(
         Clarifai.FACE_DETECT_MODEL, 
         this.state.input)
-        .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))          
+        .then(response => 
+            {
+              if(response){
+                fetch('http://localhost:3000/image',{
+                  method : 'put',
+                  headers : {'Content-type' : 'application/json'},
+                  body: JSON.stringify({
+                    id : this.state.user.id 
+                  })
+                }).then(response => response.json())
+                .then(count => {
+                  this.setState(Object.assign(this.state.user, {entries : count}))
+                })
+              }
+              this.displayFaceBox(this.calculateFaceLocation(response))
+            })          
         .catch(err => alert(err));      
     }
     onRouteChange = (route) => {
@@ -102,14 +117,14 @@ class App extends Component {
         <Navigation onRouteChange={this.onRouteChange} isSignin={isSignin} />
         { route === 'home' ?
           <div>
-          <Rank />
+          <Rank name={this.state.user.name} entries={this.state.user.entries} />
           <ImageLinkForm 
             onInputChange={this.onInputChange} 
             onButtonDetect={this.onButtonDetect}/>
           <FaceRecognition imageUrl={imageUrl} box={box} />
         </div>
           :( route === 'SignIn' ?
-            <SignIn onRouteChange={this.onRouteChange} />
+            <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
             :<Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
           )
               

@@ -22,11 +22,13 @@ class SignIn extends Component {
             },
             body : JSON.stringify({
                 email: this.state.signInEmail,
-                password: this.state.password 
+                password: this.state.signInPassword 
             })
-        }).then( response => response.json)
+        }).then( response => response.json())
         .then(data => {
-            if(data === 'success'){
+            if(data){
+                this.props.loadUser(data) ;
+                console.log(data) ;
                 this.props.onRouteChange('home') ;                
             }else{
                 alert('wrong email or password')
