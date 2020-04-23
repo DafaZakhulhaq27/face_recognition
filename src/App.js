@@ -99,7 +99,7 @@ class App extends Component {
               }
               this.displayFaceBox(this.calculateFaceLocation(response))
             })          
-        .catch(err => alert(err));      
+        .catch(err => alert('your picutre is broke, try another picture with better quality'));      
     }
     onRouteChange = (route) => {
       if(route === 'home'){

@@ -15,27 +15,32 @@ class SignIn extends Component {
         this.setState({signInPassword : event.target.value })
     }
     onSubmitSignIn = () => {
-        fetch('http://localhost:3000/signin', {
-            method : 'post',
-            headers : {
-                'content-type' : 'application/json'
-            },
-            body : JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword 
+        const {signInEmail, signInPassword} = this.state ;
+        if(signInEmail && signInPassword){
+            fetch('http://localhost:3000/signin', {
+                method : 'post',
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify({
+                    email: signInEmail,
+                    password: signInPassword 
+                })
+            }).then( response => response.json())
+            .then(data => {
+                    if(data.id){
+                        this.props.loadUser(data) ;
+                        console.log(data)
+                        this.props.onRouteChange('home') ;                    
+                    }else{
+                        alert('wrong username / password')
+                    }
+            }).catch(err => {
+                alert(err)
             })
-        }).then( response => response.json())
-        .then(data => {
-            if(data){
-                this.props.loadUser(data) ;
-                console.log(data) ;
-                this.props.onRouteChange('home') ;                
-            }else{
-                alert('wrong email or password')
-            }
-        }).catch(err => {
-            alert(err)
-        })
+        }else{
+            alert('fill the field')
+        }
     }
     render(){
         const { onRouteChange } = this.props ;
@@ -52,7 +57,8 @@ class SignIn extends Component {
                             type="email" 
                             name="email-address"  
                             id="email-address"
-                            onChange={this.onEmailChange} />
+                            onChange={this.onEmailChange} 
+                             />
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f6">Password</label>
@@ -61,7 +67,8 @@ class SignIn extends Component {
                             type="password" 
                             name="password"  
                             id="password"
-                            onChange={this.onPasswordChange} />
+                            onChange={this.onPasswordChange} 
+                             />
                     </div>
                     </fieldset>
                     <div className="">

@@ -19,25 +19,30 @@ class Register extends Component {
         this.setState({name : event.target.value })
     }    
     onSubmitSignIn = () => {
-        fetch('http://localhost:3000/register', {
-            method : 'post',
-            headers : {
-                'content-type' : 'application/json'
-            },
-            body : JSON.stringify({
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password 
-            })
-        }).then( response => response.json())
-        .then(data => {
-            if(data){
-                this.props.loadUser(data) ;
-                this.props.onRouteChange('home') ;                
-            }
-        }).catch(err => {
-            alert(err)
-        })
+        const {name, email, password} = this.state ;
+        if(name && email && password){
+            fetch('http://localhost:3000/register', {
+                method : 'post',
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password 
+                })
+            }).then( response => response.json())
+            .then(data => {
+                if(data){
+                    this.props.loadUser(data) ;
+                    this.props.onRouteChange('home') ;                
+                }
+            }).catch(err => {
+                alert(err)
+            })    
+        }else{
+            alert('fill the field')
+        }
     }
     render(){
         const { onRouteChange } = this.props ;
