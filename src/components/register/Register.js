@@ -21,7 +21,7 @@ class Register extends Component {
     onSubmitSignIn = () => {
         const {name, email, password} = this.state ;
         if(name && email && password){
-            fetch('http://localhost:3000/register', {
+            fetch('https://ancient-fortress-54719.herokuapp.com/register', {
                 method : 'post',
                 headers : {
                     'content-type' : 'application/json'
@@ -33,7 +33,7 @@ class Register extends Component {
                 })
             }).then( response => response.json())
             .then(data => {
-                if(data){
+                if(data.email){
                     this.props.loadUser(data) ;
                     this.props.onRouteChange('home') ;                
                 }

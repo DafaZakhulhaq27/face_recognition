@@ -52,7 +52,6 @@ class App extends Component {
           joined : data.joined           
         }
       })  
-      console.log(data)
     }
 
     calculateFaceLocation = (data) => {
@@ -70,7 +69,6 @@ class App extends Component {
 
     displayFaceBox = (box) => {
       this.setState({box : box }) ; 
-      console.log(this.state.box) ;
 
     }
 
@@ -86,7 +84,7 @@ class App extends Component {
         .then(response => 
             {
               if(response){
-                fetch('http://localhost:3000/image',{
+                fetch('https://ancient-fortress-54719.herokuapp.com/image',{
                   method : 'put',
                   headers : {'Content-type' : 'application/json'},
                   body: JSON.stringify({
