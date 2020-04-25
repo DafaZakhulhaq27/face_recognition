@@ -51,9 +51,9 @@ class Register extends Component {
                 <main className="pa4 black-80">
                 <div className="measure">
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                    <legend className="f1 fw6 ph0 mh0">Register</legend>
+                    <legend className="f1 fw6 ph0 mh0 white_color">Register</legend>
                     <div className="mt3">
-                        <label className="db fw6 lh-copy f6" >Name</label>
+                        <label className="db fw6 lh-copy f6 white_color" >Name</label>
                         <input 
                             className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="name" 
@@ -62,7 +62,7 @@ class Register extends Component {
                             onChange={this.onNameChange} />
                     </div>
                     <div className="mt3">
-                        <label className="db fw6 lh-copy f6" >Email</label>
+                        <label className="db fw6 lh-copy f6 white_color" >Email</label>
                         <input 
                             className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="email" 
@@ -71,7 +71,7 @@ class Register extends Component {
                             onChange={this.onEmailChange} />
                     </div>
                     <div className="mv3">
-                        <label className="db fw6 lh-copy f6">Password</label>
+                        <label className="db fw6 lh-copy f6 white_color">Password</label>
                         <input 
                             className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="password" 

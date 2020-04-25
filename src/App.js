@@ -14,15 +14,16 @@ const app = new Clarifai.App({
  });
  
   const particleparams = {
-    polygon: {
-      enable: true,
-      type: 'inside',
-      move: {
-          radius: 10
-      },
-      url: 'path/to/svg.svg'
+    particles: {
+      number: {
+        value: 30,
+        density: {
+          enable: true,
+          value_area: 800
+        }
+      }
+    }
   }
-}
 
 class App extends Component {
     constructor(){
