@@ -14,12 +14,11 @@
     "react-tilt": "^0.1.4",
     "tachyons": "^4.11.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+    "scripts": {
+      "start": "node index.js",
+      "build": "ng build",
+      "heroku-postbuild": "ng build --prod"
+    },
   "eslintConfig": {
     "extends": "react-app"
   },
