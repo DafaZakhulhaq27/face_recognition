@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-after you clone it, do this step
+after you clone it, do this steps
 
 1. install package
 ```
