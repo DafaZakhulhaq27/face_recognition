@@ -25,5 +25,9 @@ npm run dev
 ## Built With
 
 * [Clarifai](https://docs.clarifai.com/) - Face Recognition API
-* [ReactJS](https://reactjs.org/) - Front End
-* [NodeJS](https://nodejs.org/en/) - Back End
+
+ PERN STACK
+* [PostgreSQL](https://www.postgresql.org/) 
+* [ExpressJS](https://expressjs.com/) 
+* [ReactJS](https://reactjs.org/) 
+* [NodeJS](https://nodejs.org/en/) 
